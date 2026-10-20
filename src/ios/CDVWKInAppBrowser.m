@@ -849,7 +849,7 @@ BOOL isExiting = NO;
     self.toolbarBackground = [UIView new];
     // We add our own constraints, they should not be determined from the frame.
     self.toolbarBackground.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     // Get toolbar background color by options or set default which is white
     UIColor *toolbarBackgroundColor = _browserOptions.toolbarcolor ? [self colorFromHexString:_browserOptions.toolbarcolor] : UIColor.whiteColor;
     
@@ -967,7 +967,8 @@ BOOL isExiting = NO;
 
     self.webView.navigationDelegate = self;
     self.webView.UIDelegate = self.webViewUIDelegate;
-    self.webView.backgroundColor = [UIColor whiteColor];
+    // Transparent WebView to avoid a white flash while the page loads
+    self.webView.backgroundColor = [UIColor clearColor];
     if ([_settings cordovaSettingForKey:@"OverrideUserAgent"] != nil) {
         self.webView.customUserAgent = [_settings cordovaSettingForKey:@"OverrideUserAgent"];
     }
@@ -976,7 +977,7 @@ BOOL isExiting = NO;
     self.webView.clipsToBounds = YES;
     self.webView.contentMode = UIViewContentModeScaleToFill;
     self.webView.multipleTouchEnabled = YES;
-    self.webView.opaque = YES;
+    self.webView.opaque = NO;
     self.webView.userInteractionEnabled = YES;
     self.webView.allowsLinkPreview = NO;
     self.webView.allowsBackForwardNavigationGestures = NO;
